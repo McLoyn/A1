@@ -1,0 +1,675 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Variable Tema Dark (Default) */
+[data-theme="dark"] {
+  --bg-main: #0d0e10;
+  --panel-bg: #141619;
+  --panel-border: #2a2d32;
+  --panel-border-light: #40444c;
+
+  --text-primary: #f0f2f5;
+  --text-secondary: #8a8f99;
+  --text-muted: #575c66;
+
+  --accent-white: #ffffff;
+  --accent-hover: #26292e;
+
+  --tag-high: #f0f2f5;
+  --tag-mid: #8a8f99;
+  --tag-low: #3a3d45;
+
+  --grid-color: rgba(42, 45, 50, 0.6);
+}
+
+/* Variable Tema Light (Industrial Light) */
+[data-theme="light"] {
+  --bg-main: #eef0f3;
+  --panel-bg: #ffffff;
+  --panel-border: #d0d4dc;
+  --panel-border-light: #aab0bc;
+
+  --text-primary: #121417;
+  --text-secondary: #525866;
+  --text-muted: #808796;
+
+  --accent-white: #121417;
+  --accent-hover: #e2e5eb;
+
+  --tag-high: #121417;
+  --tag-mid: #525866;
+  --tag-low: #c2c7d0;
+
+  --grid-color: rgba(170, 176, 188, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  background-image: radial-gradient(var(--grid-color) 1px, transparent 0);
+  background-size: 24px 24px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+button,
+input,
+select {
+  font-family: var(--font-sans);
+}
+
+/* =========================================================
+   ENDFIELD COMPLETE HOVER & INTERACTION SYSTEM
+   ========================================================= */
+
+/* 1. Global Cursor Pointer */
+button,
+select,
+input[type="submit"],
+input[type="date"],
+.theme-toggle-btn {
+  cursor: pointer;
+}
+
+input[type="text"] {
+  cursor: text;
+}
+
+/* 2. Global Button Hover Effect (Glow Sweep Animation) */
+button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.4s ease;
+}
+
+button:hover::after {
+  left: 100%;
+}
+
+/* 3. Theme Toggle Hover */
+.theme-toggle-btn:hover {
+  border-color: var(--accent-white) !important;
+  color: var(--accent-white) !important;
+  background: var(--panel-bg);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* 4. Form Controls Hover (Input Text, Select, & Date) */
+.form-inputs input[type="text"]:hover,
+.form-inputs input[type="date"]:hover,
+.form-inputs select:hover,
+.search-input:hover,
+.select-filter:hover {
+  border-color: var(--text-secondary);
+  background-color: var(--accent-hover);
+}
+
+/* 5. Submit Button Hover */
+.form-inputs button[type="submit"]:hover {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--bg-main);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+/* 6. Filter Buttons Hover */
+.filter-bar button:hover {
+  background: var(--accent-hover);
+  color: var(--text-primary);
+  border-color: var(--panel-border-light);
+}
+
+.filter-bar button.active:hover {
+  background: var(--accent-white);
+  color: var(--bg-main);
+}
+
+/* 7. Danger Clear Button Hover */
+.danger-clear-btn:hover {
+  background: #7f1d1d !important;
+  color: #ffffff !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.2);
+}
+
+/* 8. Task Card Hover (Tactical Slide + Glow) */
+.task-card {
+  transition:
+    transform 0.15s cubic-bezier(0.2, 0, 0, 1),
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.task-card:hover {
+  border-color: var(--panel-border-light);
+  border-left-color: var(--accent-white);
+  transform: translateX(4px);
+  box-shadow: -4px 0 12px rgba(255, 255, 255, 0.05);
+}
+
+/* 9. Action Buttons Inside Card Hover (Status, Edit, Hapus) */
+.task-actions button:hover {
+  background: var(--accent-white) !important;
+  color: var(--bg-main) !important;
+  border-color: var(--accent-white) !important;
+  font-weight: 700;
+}
+
+.task-actions button.danger:hover {
+  background: #7f1d1d !important;
+  color: #ffffff !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.3);
+}
+
+/* 10. Pagination Hover State */
+.pagination-container button:hover:not(:disabled) {
+  background: var(--accent-white);
+  color: var(--bg-main);
+  border-color: var(--accent-white);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+/* Theme Toggle Button */
+.theme-toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px dashed var(--panel-border-light);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 12px;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-white);
+  color: var(--text-primary);
+}
+
+/* Header UI */
+.app-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 32px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border-light);
+  border-left: 4px solid var(--accent-white);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.app-header h1 {
+  margin: 4px 0 6px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.app-header p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+.stats-box {
+  min-width: 170px;
+  background: var(--bg-main);
+  padding: 14px 18px;
+  border: 1px solid var(--panel-border);
+  position: relative;
+}
+
+.stats-box::before {
+  content: "// HUD.01";
+  position: absolute;
+  top: -8px;
+  right: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: var(--bg-main);
+  padding: 0 4px;
+  color: var(--text-muted);
+}
+
+.stats strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  color: var(--accent-white);
+  letter-spacing: -1px;
+}
+
+.stats span {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.progress-container {
+  width: 100%;
+  height: 4px;
+  background: var(--panel-border);
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--accent-white);
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* Form Input Console */
+.task-form {
+  margin: 20px 0;
+  padding: 20px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+}
+
+.error-banner {
+  background: #2a1515;
+  color: #f87171;
+  border: 1px solid #7f1d1d;
+  font-family: var(--font-mono);
+  padding: 8px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.form-inputs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-inputs input[type="text"],
+.form-inputs input[type="date"],
+.form-inputs select {
+  border: 1px solid var(--panel-border-light);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+.form-inputs input[type="text"] {
+  flex: 1 1 200px;
+  font-family: var(--font-sans);
+}
+.form-inputs input[type="date"],
+.form-inputs select {
+  font-family: var(--font-mono);
+}
+
+.form-inputs input[type="text"]:focus,
+.form-inputs input[type="date"]:focus,
+.form-inputs select:focus {
+  border-color: var(--accent-white);
+}
+
+.form-inputs button[type="submit"] {
+  border: 1px solid var(--accent-white);
+  padding: 10px 20px;
+  background: var(--accent-white);
+  color: var(--bg-main);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-inputs button[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+/* Filter Bar */
+.filter-section {
+  margin: 16px 0;
+}
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-input {
+  border: 1px solid var(--panel-border-light);
+  background: var(--panel-bg);
+  color: var(--text-primary);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  outline: none;
+  min-width: 220px;
+}
+
+.search-input:focus {
+  border-color: var(--accent-white);
+}
+
+.filter-bar button {
+  border: 1px solid var(--panel-border);
+  background: var(--panel-bg);
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.filter-bar button:hover {
+  background: var(--accent-hover);
+  color: var(--text-primary);
+  border-color: var(--panel-border-light);
+}
+
+.filter-bar button.active {
+  background: var(--accent-white);
+  color: var(--bg-main);
+  border-color: var(--accent-white);
+  font-weight: 700;
+}
+
+.select-filter {
+  padding: 8px 12px;
+  border: 1px solid var(--panel-border-light);
+  background: var(--panel-bg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  outline: none;
+  text-transform: uppercase;
+}
+
+.danger-clear-btn {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  border: 1px dashed var(--panel-border-light) !important;
+  margin-left: auto;
+}
+
+.danger-clear-btn:hover {
+  background: #7f1d1d !important;
+  color: #ffffff !important;
+  border-color: #7f1d1d !important;
+}
+
+/* Task Cards */
+/* =========================================================
+   TASK LIST GRID & CARDS (2 KOTAK 2 KOTAK KE BAWAH)
+   ========================================================= */
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.task-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-left: 3px solid var(--panel-border-light);
+  transition:
+    transform 0.15s cubic-bezier(0.2, 0, 0, 1),
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.task-card:hover {
+  border-color: var(--panel-border-light);
+  border-left-color: var(--accent-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.task-card.done {
+  opacity: 0.5;
+  border-left-color: var(--text-muted);
+}
+
+.task-card.done h3 {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  border: 1px solid var(--panel-border);
+  text-transform: uppercase;
+}
+
+.p-high {
+  background-color: var(--tag-high);
+  border-color: var(--tag-high);
+  color: var(--bg-main);
+}
+.p-medium {
+  background-color: var(--tag-mid);
+  border-color: var(--tag-mid);
+  color: var(--bg-main);
+}
+.p-low {
+  background-color: var(--tag-low);
+  border-color: var(--tag-low);
+  color: var(--text-primary);
+}
+
+.task-content h3 {
+  margin: 4px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.deadline-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin: 4px 0;
+}
+
+.task-content p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.task-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--panel-border);
+}
+
+.task-actions button {
+  border: 1px solid var(--panel-border-light);
+  padding: 6px 12px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.task-actions button:hover {
+  background: var(--accent-white) !important;
+  color: var(--bg-main) !important;
+  border-color: var(--accent-white) !important;
+  font-weight: 700;
+}
+
+.task-actions button.danger:hover {
+  background: #7f1d1d !important;
+  color: #ffffff !important;
+  border-color: #f87171 !important;
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.3);
+}
+
+.edit-box {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+.edit-box input {
+  padding: 4px 8px;
+  background: var(--bg-main);
+  border: 1px solid var(--accent-white);
+  color: var(--text-primary);
+  font-size: 13px;
+  width: 100%;
+}
+.edit-box button {
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border: 1px solid var(--accent-white);
+  background: var(--accent-white);
+  color: var(--bg-main);
+  text-transform: uppercase;
+}
+
+/* Responsif untuk Layar Ponsel */
+@media (max-width: 640px) {
+  .task-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Pagination HUD UI */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 12px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+}
+
+.pagination-container button {
+  border: 1px solid var(--panel-border-light);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pagination-container button:hover:not(:disabled) {
+  background: var(--accent-white);
+  color: var(--bg-main);
+  border-color: var(--accent-white);
+}
+
+.pagination-container button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 700px) {
+  .app-header,
+  .task-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .stats-box {
+    text-align: left;
+  }
+  .danger-clear-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+  .search-input {
+    width: 100%;
+  }
+}
